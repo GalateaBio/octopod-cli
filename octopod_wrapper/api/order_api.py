@@ -8,6 +8,42 @@ from octopod_wrapper.api import _BaseApi
 
 
 class _OrderApi(_BaseApi):
+    def cancel_order(self, order_id: Union[str, UUID]) -> Dict:
+        order_id = self.convert_str_to_uuid(order_id)
+
+        response = self._make_api_call(
+            requests.post,
+            f'exec/cancel',
+            json={'order_id': str(order_id)},
+        )
+        return response.json()
+
+    def update_order_tags(
+        self,
+        order_id: Union[str, UUID],
+        tags_ids: Optional[List[Union[str, UUID]]] = None,
+    ) -> Dict:
+        order_id = self.convert_str_to_uuid(order_id)
+
+        if tags_ids is None:
+            tags_ids = []
+
+        str_tags_ids: List[str] = []
+        for tag_id in tags_ids:
+            if isinstance(tag_id, str):
+                tag_id = self.convert_str_to_uuid(tag_id)
+
+            if tag_id is None:
+                raise OctopodException('Wrong uuid format of tag id')
+            str_tags_ids.append(str(tag_id))
+
+        response = self._make_api_call(
+            requests.patch,
+            f'exec/orders/{str(order_id)}',
+            json={'tags_ids': str_tags_ids},
+        )
+        return response.json()
+
     def submit_order(
         self,
         source_file_id: Union[str, UUID],

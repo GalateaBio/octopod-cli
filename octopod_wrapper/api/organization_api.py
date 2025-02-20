@@ -1,4 +1,5 @@
-from typing import Dict
+from typing import Dict, Union
+from uuid import UUID
 
 import requests
 
@@ -7,6 +8,16 @@ from octopod_wrapper.api import _BaseApi
 
 
 class _OrganizationApi(_BaseApi):
+    def get_organization_models(self, organization_id: Union[str, UUID], hide_deprecated: bool) -> Dict:
+        organization_id = self.convert_str_to_uuid(organization_id)
+
+        response = self._make_api_call(
+            requests.get,
+            f'organizations/{str(organization_id)}/models',
+            params={'hide_deprecated': hide_deprecated},
+        )
+        return response.json()
+
     def get_organization_info(self) -> Dict:
         """
             Get organization information.
