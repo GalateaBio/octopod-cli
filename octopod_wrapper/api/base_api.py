@@ -37,7 +37,6 @@ class _BaseApi(ABC):
         if headers is None:
             kwargs['headers'] = {}
         kwargs['headers']['Authorization'] = f'Bearer {self._api_key}'
-        kwargs['headers']['Accept'] = 'application/json'
 
         response: requests.Response = func(f'{self._base_url}/api/v1/{endpoint_path}', **kwargs)
         response.raise_for_status()
