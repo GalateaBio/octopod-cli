@@ -9,6 +9,16 @@ from octopod_wrapper.api import _BaseApi
 
 class _OrganizationApi(_BaseApi):
     def get_organization_models(self, organization_id: Union[str, UUID], hide_deprecated: bool) -> Dict:
+        """
+            Get organization's models.
+
+            Args:
+                organization_id: Organization Id. Should be in uuid4 format.
+                hide_deprecated: Fetch deprecated models or not.
+
+            Returns:
+                Dict: List of organization's models objects.
+        """
         organization_id = self.convert_str_to_uuid(organization_id)
 
         response = self._make_api_call(

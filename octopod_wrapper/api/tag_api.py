@@ -10,11 +10,11 @@ from octopod_wrapper.api import _BaseApi
 class _TagApi(_BaseApi):
     def list_tags(self, **kwargs) -> Dict:
         """
-            List tags with possible filetring by tag name.
+            List tags with possible filtering by tag name.
 
             Keyword Args:
                 page: Requested page number. Should be int.
-                name: Tag name to filtering
+                name: Tag name to filtering. Should be str.
 
             Returns:
                 Dict: Pagination object with list of tag objects.
@@ -32,7 +32,7 @@ class _TagApi(_BaseApi):
             Create new tag.
 
             Args:
-                name: Tag name
+                name: Tag name.
 
             Returns:
                 Dict: Newly created tag object.
@@ -50,7 +50,7 @@ class _TagApi(_BaseApi):
             Find tag by id.
 
             Args:
-                id: Id of tag. Should be in uuid4 format.
+                tag_id: Tag Id. Should be in uuid4 format.
 
             Returns:
                 Dict: Tag object.
@@ -65,7 +65,7 @@ class _TagApi(_BaseApi):
             Delete tag by id.
 
             Args:
-                id: Id of tag. Should be in uuid4 format.
+                tag_id: Tag Id. Should be in uuid4 format.
         """
         tag_id = self.convert_str_to_uuid(tag_id)
 
@@ -76,8 +76,8 @@ class _TagApi(_BaseApi):
             Update tag with new name.
 
             Args:
-                id: Id of tag. Should be in uuid4 format.
-                new_name: New tag name
+                tag_id: Tag Id. Should be in uuid4 format.
+                new_name: New tag name.
         """
         tag_id = self.convert_str_to_uuid(tag_id)
 

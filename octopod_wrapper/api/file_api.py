@@ -10,6 +10,15 @@ from octopod_wrapper.api import _BaseApi
 
 class _FileApi(_BaseApi):
     def download_file(self, file_id: Union[str, UUID]) -> Tuple[BytesIO, Optional[str]]:
+        """
+            Download file.
+
+            Args:
+                file_id: File id. Should be in uuid4 format.
+
+            Returns:
+                Tuple[BytesIO, Optional[str]]: File object and file name.
+        """
         file_id = self.convert_str_to_uuid(file_id)
 
         response = self._make_api_call(requests.get, f'data/files/{str(file_id)}/download')
@@ -23,7 +32,7 @@ class _FileApi(_BaseApi):
 
     def upload_file_from_file(self, file_name: str) -> Dict:
         """
-            Uploads a local file and returns the new file object.
+            Upload a local file.
 
             Args:
                 file_name: Path to the file to upload.
@@ -37,7 +46,7 @@ class _FileApi(_BaseApi):
 
     def upload_file_from_io(self, file_content: Union[FileIO, BytesIO, BinaryIO], file_name: str) -> Dict:
         """
-            Uploads in memory file and returns the new file object.
+            Uploads in memory file.
 
             Args:
                 file_content: File content.
@@ -54,7 +63,7 @@ class _FileApi(_BaseApi):
             Find file by id.
 
             Args:
-                file_id: Id of file. Should be in uuid4 format.
+                file_id: File Id. Should be in uuid4 format.
 
             Returns:
                 Optional[Dict]: File object or None if file not found.
@@ -77,8 +86,8 @@ class _FileApi(_BaseApi):
             Keyword Args:
                 page: Requested page number. Should be int.
                 file: File id or file name. Should be str or uuid4.
-                min_date: Min uploaded date. Should be in format YYYY-MM-DD.
-                max_date: Max uploaded date. Should be in format YYYY-MM-DD.
+                min_date: Min uploaded date. Should be str in format YYYY-MM-DD.
+                max_date: Max uploaded date. Should be str in format YYYY-MM-DD.
                 show_virtual: Fetch externally uploaded files. Should be boolean.
                 only_acceptable: Fetch only acceptable files. Should be boolean.
 
@@ -93,10 +102,26 @@ class _FileApi(_BaseApi):
         return response.json()
 
     def delete_file(self, file_id: Union[str, UUID]):
+        """
+            Delete file by id.
+
+            Args:
+                file_id: File Id. Should be in uuid4 format.
+        """
         file_id = self.convert_str_to_uuid(file_id)
         self._make_api_call(requests.delete, f'data/files/{str(file_id)}')
 
     def update_file_sample_alias(self, file_id: Union[str, UUID], new_sample_alias: str) -> Dict:
+        """
+            Update file wit new sample alias.
+
+            Args:
+                file_id: File Id. Should be in uuid4 format.
+                new_sample_alias: New sample alias.
+
+            Returns:
+                Dict: File object.
+        """
         file_id = self.convert_str_to_uuid(file_id)
 
         response = self._make_api_call(
