@@ -1,3 +1,4 @@
+import os
 import re
 from io import FileIO, BytesIO
 from typing import Union, Optional, Dict, BinaryIO, Tuple
@@ -35,13 +36,14 @@ class _FileApi(_BaseApi):
             Upload a local file.
 
             Args:
-                file_name: Path to the file to upload.
+                file_name: Full path to the file to upload.
 
             Returns:
                 Dict: The newly created file object.
         """
         with open(file_name, "rb") as f:
-            response = self._make_api_call(requests.post, 'data/files/upload', files={'file': f})
+            _, tail = os.path.split(file_name)
+            response = self._make_api_call(requests.post, 'data/files/upload', files={'file': (tail, f)})
             return response.json()
 
     def upload_file_from_io(self, file_content: Union[FileIO, BytesIO, BinaryIO], file_name: str) -> Dict:

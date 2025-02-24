@@ -60,17 +60,6 @@ class _TagApi(_BaseApi):
         response = self._make_api_call(requests.get, f'exec/tags/{str(tag_id)}')
         return response.json()
 
-    def delete_tag(self, tag_id: Union[str, UUID]):
-        """
-            Delete tag by id.
-
-            Args:
-                tag_id: Tag Id. Should be in uuid4 format.
-        """
-        tag_id = self.convert_str_to_uuid(tag_id)
-
-        self._make_api_call(requests.delete, f'exec/tags/{str(tag_id)}')
-
     def update_tag(self, tag_id: Union[str, UUID], new_name: str) -> Dict:
         """
             Update tag with new name.
