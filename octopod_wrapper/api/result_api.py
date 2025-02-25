@@ -5,6 +5,7 @@ from uuid import UUID
 
 import requests
 
+from octopod_wrapper import OctopodException
 from octopod_wrapper.api import _BaseApi
 
 
@@ -77,6 +78,9 @@ class _ResultApi(_BaseApi):
             Returns:
                 Tuple[BytesIO, Optional[str]]: File object and file name.
         """
+        if not result_type:
+            raise OctopodException('result_type arg is empty')
+
         order_id = self.convert_str_to_uuid(order_id)
 
         if kwargs is None:
@@ -106,6 +110,9 @@ class _ResultApi(_BaseApi):
             Returns:
                 Dict: Order result json data.
         """
+        if not result_type:
+            raise OctopodException('result_type arg is empty')
+
         order_id = self.convert_str_to_uuid(order_id)
 
         response = self._make_api_call(

@@ -38,7 +38,7 @@ class _TagApi(_BaseApi):
                 Dict: Newly created tag object.
         """
         if not name:
-            raise OctopodException('Name of tag is empty')
+            raise OctopodException('name arg is empty')
 
         payload = {'name': name}
 
@@ -68,10 +68,10 @@ class _TagApi(_BaseApi):
                 tag_id: Tag Id. Should be in uuid4 format.
                 new_name: New tag name.
         """
-        tag_id = self.convert_str_to_uuid(tag_id)
-
         if not new_name:
-            raise OctopodException('Name of tag is empty')
+            raise OctopodException('new_name arg is empty')
+
+        tag_id = self.convert_str_to_uuid(tag_id)
 
         payload = {'name': new_name}
 

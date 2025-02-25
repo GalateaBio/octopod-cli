@@ -8,7 +8,7 @@ from octopod_wrapper.api import _BaseApi
 
 
 class _OrganizationApi(_BaseApi):
-    def get_organization_models(self, organization_id: Union[str, UUID], hide_deprecated: bool) -> Dict:
+    def get_organization_models(self, organization_id: Union[str, UUID], hide_deprecated: bool = True) -> Dict:
         """
             Get organization's models.
 

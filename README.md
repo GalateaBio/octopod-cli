@@ -1,3 +1,56 @@
+# Octopod wrapper
+
+Supported features:
+* File uploading/downloading via API and SFTP
+* Get organization's information and available models
+* Searching files
+* Submitting orders
+* Cancelling orders
+* Searching/adding/editing tags
+* Downloading order's results
+
+## Basic API & SFTP usage
+```python
+base_url = 'Octopod API URL'  # Example https://<OCTOPOD_API_HOST>
+api_key = 'Octopod API Key'
+
+octopod_client = OctopodClient(base_url=base_url, api_key=api_key)
+# Web upload
+file_obj = octopod_client.file_api.upload_file_from_file('/downloads/my_file.zip')
+file_id = file_obj.get('id')
+# SFTP upload
+sftp_keyfile = 'File name with Octopod SFTP private key'
+sftp_octopod_client = OctopodSftpClient(
+  sftp_host='Octopod SFTP host',
+  sftp_user='Octopod SFTP user',
+  sftp_password=None,
+  sftp_keyfile=sftp_keyfile,
+)
+file_name = sftp_octopod_client.upload_file_from_file(
+  file_name='/downloads/my_file.zip',
+  remote_filename='my_file.zip',
+  remote_folder='my_awesome_folder_name',
+)
+files_obj = octopod_client.file_api.list_files(**{'file': file_name})
+# Check that files_obj.get('count', 0) > 0
+file_id = files_obj.get('results', [])[0].get('id')
+# Waiting for file validating completion
+
+org_info = octopod_client.organization_api.get_organization_info()
+available_model_names = org_info.get('available_models', [])
+# Found needed model name.
+model_name = available_model_names[0]
+
+order_obj = octopod_client.order_api.submit_order(file_id=file_id, model_name=model_name)
+order_id = order_obj.get('id')
+# Waiting for order execution completion
+
+result_file_content, result_file_name = octopod_client.result_api.download_result_file(
+  order_id=order_id, 
+  result_type=octopod_client.result_api.RESULT_TYPE_SUMMARY_CHROMS,
+)
+```
+
 # Octopod CLI
 
 A command-line interface for automating file processing with the GalateaBio API.

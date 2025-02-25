@@ -6,6 +6,7 @@ from uuid import UUID
 
 import requests
 
+from octopod_wrapper import OctopodException
 from octopod_wrapper.api import _BaseApi
 
 
@@ -41,6 +42,9 @@ class _FileApi(_BaseApi):
             Returns:
                 Dict: The newly created file object.
         """
+        if not file_name:
+            raise OctopodException('file_name arg is empty')
+
         with open(file_name, "rb") as f:
             _, tail = os.path.split(file_name)
             response = self._make_api_call(requests.post, 'data/files/upload', files={'file': (tail, f)})
