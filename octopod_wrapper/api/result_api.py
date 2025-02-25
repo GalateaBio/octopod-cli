@@ -44,7 +44,7 @@ class _ResultApi(_BaseApi):
             kwargs = {}
         query_params = self._add_pagination_query_params(kwargs)
 
-        response = self._make_api_call(requests.get, f'results/{str(order_id)}/pdf_report', params=query_params)
+        response = self._make_api_call(requests.get, f'data/results/{str(order_id)}/pdf_report', params=query_params)
         return response.json()
 
     def download_result_file(
@@ -83,7 +83,7 @@ class _ResultApi(_BaseApi):
             kwargs = {}
         kwargs['result_type'] = result_type
 
-        response = self._make_api_call(requests.get, f'results/{str(order_id)}/download', params=kwargs)
+        response = self._make_api_call(requests.get, f'data/results/{str(order_id)}/download', params=kwargs)
         file_name: Optional[str] = None
         content_disposition = response.headers.get('content-disposition', None)
         if content_disposition:
@@ -110,7 +110,7 @@ class _ResultApi(_BaseApi):
 
         response = self._make_api_call(
             requests.get,
-            f'results/{str(order_id)}/json',
+            f'data/results/{str(order_id)}/json',
             params={'result_type': result_type},
         )
 
@@ -128,6 +128,6 @@ class _ResultApi(_BaseApi):
         """
         order_id = self.convert_str_to_uuid(order_id)
 
-        response = self._make_api_call(requests.get, f'results/{str(order_id)}/samples')
+        response = self._make_api_call(requests.get, f'data/results/{str(order_id)}/samples')
 
         return response.json()
