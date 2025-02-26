@@ -59,18 +59,19 @@ class _ResultApi(_BaseApi):
 
             Args:
                 order_id: Order id. Should be in uuid4 format.
-                result_type: Result type. Should be str. Possible values: RESULT_TYPE_SUMMARY_SUPERSET,
-                                                                  RESULT_TYPE_SUMMARY_CHROMS,
-                                                                  RESULT_TYPE_DETAILED_SUPERSET,
-                                                                  RESULT_TYPE_DETAILED_CHROMS,
-                                                                  RESULT_TYPE_WHOLE_RESULT,
-                                                                  RESULT_TYPE_CHROMS_SVG,
-                                                                  RESULT_TYPE_PDF_REPORT,
-                                                                  RESULT_TYPE_PRS_DATA,
-                                                                  RESULT_TYPE_PRS_TECH_DATA,
-                                                                  RESULT_TYPE_PRS_QC,
-                                                                  RESULT_TYPE_EXEC_ERRORS,
-                                                                  RESULT_TYPE_UNKNOWN.
+                result_type: Result type. Should be str. Possible values:
+                    RESULT_TYPE_SUMMARY_SUPERSET,
+                    RESULT_TYPE_SUMMARY_CHROMS,
+                    RESULT_TYPE_DETAILED_SUPERSET,
+                    RESULT_TYPE_DETAILED_CHROMS,
+                    RESULT_TYPE_WHOLE_RESULT,
+                    RESULT_TYPE_CHROMS_SVG,
+                    RESULT_TYPE_PDF_REPORT,
+                    RESULT_TYPE_PRS_DATA,
+                    RESULT_TYPE_PRS_TECH_DATA,
+                    RESULT_TYPE_PRS_QC,
+                    RESULT_TYPE_EXEC_ERRORS,
+                    RESULT_TYPE_UNKNOWN.
 
             Keyword Args:
                 pdf_request_id: PDF report request id. Should be in uuid4 format.
@@ -102,10 +103,11 @@ class _ResultApi(_BaseApi):
 
             Args:
                 order_id: Order id. Should be in uuid4 format.
-                result_type: Result type. Should be str. Possible values: RESULT_TYPE_SUMMARY_SUPERSET,
-                                                                  RESULT_TYPE_SUMMARY_CHROMS,
-                                                                  RESULT_TYPE_DETAILED_SUPERSET,
-                                                                  RESULT_TYPE_DETAILED_CHROMS.
+                result_type: Result type. Should be str. Possible values:
+                    RESULT_TYPE_SUMMARY_SUPERSET,
+                    RESULT_TYPE_SUMMARY_CHROMS,
+                    RESULT_TYPE_DETAILED_SUPERSET,
+                    RESULT_TYPE_DETAILED_CHROMS.
 
             Returns:
                 Dict: Order result json data.

@@ -54,9 +54,13 @@ order_obj = octopod_client.order_api.submit_order(file_id=file_id, model_name=mo
 order_id = order_obj.get('id')
 # Waiting for order execution completion
 
+order_obj = octopod_client.order_api.find_order_by_id_or_file_id(order_id)
+order_result_types = order_obj.get('result_types')
+result_type = order_result_types[0]  
+# or for example result_type = octopod_client.result_api.RESULT_TYPE_SUMMARY_CHROMS
 result_file_content, result_file_name = octopod_client.result_api.download_result_file(
   order_id=order_id, 
-  result_type=octopod_client.result_api.RESULT_TYPE_SUMMARY_CHROMS,
+  result_type=result_type,
 )
 ```
 

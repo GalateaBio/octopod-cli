@@ -32,7 +32,7 @@ class _FileApi(_BaseApi):
                 file_name = search_result.group(1)
         return BytesIO(response.content), file_name
 
-    def upload_file_from_file(self, file_name: str) -> Dict:
+    def upload_file(self, file_name: str) -> Dict:
         """
             Upload a local file.
 

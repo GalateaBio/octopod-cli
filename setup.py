@@ -18,7 +18,7 @@ with open("requirements.txt", "r") as f:
 setup(
     name="octopod",
     version="0.0.1",
-    description="Wrapper for Octopod API",
+    description="Octopod API client",
     packages=find_packages(),
     long_description=long_description,
     long_description_content_type="text/markdown",

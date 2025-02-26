@@ -33,7 +33,7 @@ class OctopodSftpClient:
         self.sftp_password = sftp_password
         self.sftp_keyfile = sftp_keyfile
 
-    def upload_file_from_file(
+    def upload_file(
         self,
         file_name: str,
         remote_filename: Optional[str] = None,

@@ -133,20 +133,22 @@ class _OrderApi(_BaseApi):
                 page: Requested page number. Should be int.
                 filter: Order id or file id or file name. Should be str or uuid4.
                 tags_ids: List of tags ids. Each item should be in uuid4 format.
-                status: Order status. Should be str. Possible values: ORDER_STATUS_REGISTERED, ORDER_STATUS_PREPARING,
-                                                       ORDER_STATUS_SUBMITTED, ORDER_STATUS_RUNNING,
-                                                       ORDER_STATUS_MODEL_COMPLETED, ORDER_STATUS_COMPLETED,
-                                                       ORDER_STATUS_FAILED, ORDER_STATUS_CANCELED,
-                                                       ORDER_STATUS_CANCELING, ORDER_STATUS_MAKING_REPORT,
-                                                       ORDER_STATUS_COLLECT_REPORT_RESULT, ORDER_STATUS_REPORTS_FAILED,
-                                                       ORDER_STATUS_QC_FAILED.
+                status: Order status. Should be str. Possible values:
+                    ORDER_STATUS_REGISTERED, ORDER_STATUS_PREPARING,
+                    ORDER_STATUS_SUBMITTED, ORDER_STATUS_RUNNING,
+                    ORDER_STATUS_MODEL_COMPLETED, ORDER_STATUS_COMPLETED,
+                    ORDER_STATUS_FAILED, ORDER_STATUS_CANCELED,
+                    ORDER_STATUS_CANCELING, ORDER_STATUS_MAKING_REPORT,
+                    ORDER_STATUS_COLLECT_REPORT_RESULT, ORDER_STATUS_REPORTS_FAILED,
+                    ORDER_STATUS_QC_FAILED.
                 type: Type of file. Should be str. Possible values: ORDER_TYPE_GNT, ORDER_TYPE_WGS, ORDER_TYPE_EXTERNAL.
                 model_name: Model name. Should be str.
                 model_api_name: Model api name. Should be str.
-                status_group: Status group. Should be str. Possible values: ORDER_STATUS_GROUP_INITIALIZING,
-                                                             ORDER_STATUS_GROUP_RUNNING,
-                                                             ORDER_STATUS_GROUP_COMPLETED,
-                                                             ORDER_STATUS_GROUP_FAILED
+                status_group: Status group. Should be str. Possible values:
+                    ORDER_STATUS_GROUP_INITIALIZING,
+                    ORDER_STATUS_GROUP_RUNNING,
+                    ORDER_STATUS_GROUP_COMPLETED,
+                    ORDER_STATUS_GROUP_FAILED
                 min_date: Min started date. Should be str in format YYYY-MM-DD.
                 max_date: Max started date. Should be str in format YYYY-MM-DD.
 
