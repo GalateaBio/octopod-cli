@@ -1,6 +1,6 @@
 # Octopod wrapper
 
-Supported features:
+## Supported features:
 * File uploading/downloading via API and SFTP
 * Get organization's information and available models
 * Searching files
@@ -8,6 +8,15 @@ Supported features:
 * Cancelling orders
 * Searching/adding/editing tags
 * Downloading order's results
+
+## Installation
+```sh
+git clone repository
+```
+In your project run 
+```sh
+pip install octopod file://<path_to_repo>
+```
 
 ## Basic API & SFTP usage
 ```python
