@@ -20,6 +20,8 @@ setup(
     version="0.0.1",
     description="Octopod API client",
     packages=find_packages(),
+    py_modules=['local', 'octopod_cli'],
+    entry_points={'console_scripts': ['octopod-cli=local:main']},
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
