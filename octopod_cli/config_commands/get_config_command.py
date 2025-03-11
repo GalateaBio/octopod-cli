@@ -9,7 +9,7 @@ class GetConfigCommand(BaseCommand):
         return 'get-config'
 
     def add_args(self, subparsers, parser):
-        self._command_parser = subparsers.add_parser(self.command_name, parents=[parser], help='Get config')
+        self._command_parser = subparsers.add_parser(self.command_name, help='Get config')
         self._command_parser.set_defaults(command=self.command_name)
 
     def run_command(self, args):

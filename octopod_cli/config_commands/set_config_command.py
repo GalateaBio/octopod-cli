@@ -10,6 +10,7 @@ class SetConfigCommand(BaseCommand):
     __arg_sftp_host = 'sftp_host'
     __arg_sftp_user = 'sftp_user'
     __arg_sftp_keyfile = 'sftp_keyfile'
+    __arg_download_folder = 'download_folder'
 
     @property
     def command_name(self) -> str:
@@ -53,6 +54,13 @@ class SetConfigCommand(BaseCommand):
             help='Octopod SFTP key file',
             type=str,
         )
+        self._command_parser.add_argument(
+            f'--{self.__arg_download_folder}',
+            nargs='?',
+            default=None,
+            help='Folder to save files',
+            type=str,
+        )
 
     def run_command(self, args):
         new_api_key = getattr(args, self.__arg_api_key)
@@ -60,6 +68,7 @@ class SetConfigCommand(BaseCommand):
         new_sftp_host = getattr(args, self.__arg_sftp_host)
         new_sftp_user = getattr(args, self.__arg_sftp_user)
         new_sftp_keyfile = getattr(args, self.__arg_sftp_keyfile)
+        new_download_folder = getattr(args, self.__arg_download_folder)
 
         config_file = Path(config_file_name)
         lines: List[str] = []
@@ -103,6 +112,13 @@ class SetConfigCommand(BaseCommand):
                 result=new_lines,
                 new_value=new_sftp_keyfile,
                 arg_name=self.__arg_sftp_keyfile,
+            )
+
+            self._fetch_config_value(
+                lines=lines,
+                result=new_lines,
+                new_value=new_download_folder,
+                arg_name=self.__arg_download_folder,
             )
 
             file.truncate(0)

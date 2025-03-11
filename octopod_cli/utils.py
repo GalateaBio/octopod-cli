@@ -13,6 +13,7 @@ class Config:
     sftp_host: Optional[str] = None
     sftp_user: Optional[str] = None
     sftp_keyfile: Optional[str] = None
+    download_folder: Optional[str] = None
 
 
 def get_config() -> Optional[Config]:

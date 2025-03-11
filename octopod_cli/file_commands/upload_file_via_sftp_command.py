@@ -8,7 +8,7 @@ class UploadFileViaSftpCommand(BaseCommand):
         return 'sftp-upload-file'
 
     def add_args(self, subparsers, parser):
-        self._command_parser = subparsers.add_parser(self.command_name, parents=[parser], help='Upload file via SFTP')
+        self._command_parser = subparsers.add_parser(self.command_name, help='Upload file via SFTP')
         self._command_parser.set_defaults(command=self.command_name)
         self._command_parser.add_argument(
             '--file_name',

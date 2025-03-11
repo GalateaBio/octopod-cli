@@ -65,85 +65,21 @@ result_file_content, result_file_name = octopod_client.result_api.download_resul
 ```
 
 # Octopod CLI
-
 A command-line interface for automating file processing with the GalateaBio API.
+## Basic usage
+```sh
+octopod-cli -h  # to show available commands
 
-## Features
+#Configure first
+octopod-cli set-config --api_key="<api_key>" --api_base_url="<api_base_url>" --sftp_host="<sftp_host>" --sftp_user="<sftp_user>" --sftp_keyfile="<sftp_keyfile>" --download_folder="<download_folder>"
+octopod-cli get-config  # to show current config
 
-- Automatic upload mode selection:
-  - HTTP for files ≤ 50MB
-  - SFTP for files > 50MB
-- Optional reuse of existing files on server with `--check-if-file-exists`
-- Handles file validation, order submission, and result downloads
-- Automatic token refresh and re-authentication
-- Configurable polling intervals and timeouts
-
-## Installation
-
-Requires Python 3.6+ and the following packages:
-
-- requests
-- paramiko
-
-You can install the required packages using pip:
-
-```bash
-pip install requests paramiko
+octopod-cli api-upload-file -h  # to show help of selected command
+octopod-cli api-upload-file --file_name="<full_file_name>"  # to upload file
+octopod-cli find-file --file_id="<file_id>"  # to find file by id
+octopod-cli find-file --file_name="<file_name>"  # to find files by name
+octopod-cli get-organization-info  # to show organization info with available models
+octopod-cli submit-order --file_id="<file_id>" --model="<model_name>"  # submit order
+octopod-cli find-order --order_id_or_file_id="<order_id_or_file_id>"  # find order by order id or file id
+octopod-cli download-result-file --order_id="<order_id>" --result_type="SUMMARY_SUPERSET"  # download order result by type
 ```
-
-## Usage
-
-### Basic Example
-
-```bash
-python octopod-cli.py \
-    --username "user@example.com" \
-    --password "your_password" \
-    --file_to_process "data.vcf" \
-    --model "skywalker" \
-    --download_folder "results" \
-    --check-if-file-exists
-```
-
-### Arguments
-
-- `--username`: Your GalateaBio account email.
-- `--password`: Your GalateaBio account password.
-- `--file_to_process`: Path to the VCF file to be processed.
-- `--model`: The model to use for processing (e.g., "skywalker").
-- `--download_folder`: Directory where results will be saved.
-- `--check-if-file-exists`: (Optional) Reuse existing files on the server if they already exist.
-- `--poll-interval`: Polling interval in seconds for checking job status.
-- `--timeout`: Maximum time in seconds to wait for job completion.
-
-### Advanced Usage
-
-- **Configuring Polling Intervals and Timeouts**:
-
-  To adjust how frequently the CLI checks for job status and set a timeout:
-
-  ```bash
-  python octopod-cli.py \
-      --username "user@example.com" \
-      --password "your_password" \
-      --file_to_process "data.vcf" \
-      --model "skywalker" \
-      --download_folder "results" \
-      --poll-interval 30 \
-      --timeout 600
-  ```
-
-## Logging
-
-The CLI provides detailed logs of its operations. Logs are output to the console and can be redirected to a file:
-
-```bash
-python octopod-cli.py [options] > octopod.log 2>&1
-```
-
-## Troubleshooting
-
-- **Authentication Errors**: Ensure your username and password are correct.
-- **File Upload Issues**: Check your network connection and verify file size limits.
-- **Dependency Issues**: Make sure all required packages are installed.
-- **Permission Denied**: Ensure you have write permissions to the specified download folder.
