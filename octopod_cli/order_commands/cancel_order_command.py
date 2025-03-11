@@ -19,4 +19,4 @@ class CancelOrderCommand(BaseApiCommand):
 
     def _run_command_logic(self, args, api_client: OctopodClient):
         api_client.order_api.cancel_order(args.order_id)
-        print('Canceled')
+        print('Canceled.')

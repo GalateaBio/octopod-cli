@@ -12,7 +12,7 @@ class Config:
     api_base_url: Optional[str] = None
     sftp_host: Optional[str] = None
     sftp_user: Optional[str] = None
-    sftp_keyfile: Optional[str] = None
+    sftp_keyfile_path: Optional[str] = None
     download_folder: Optional[str] = None
 
 

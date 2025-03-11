@@ -34,12 +34,12 @@ class UploadFileViaSftpCommand(BaseCommand):
     def run_command(self, args):
         config = get_config()
         if config is None:
-            print('Config not set. Please use set-config command')
+            print('ERROR! Config not set. Please use set-config command')
             return
 
-        if not config.sftp_host or not config.sftp_user or not config.sftp_keyfile:
+        if not config.sftp_host or not config.sftp_user or not config.sftp_keyfile_path:
             print(
-                'sftp_host or sftp_user or sftp_keyfile not configured. '
+                'ERROR! sftp_host or sftp_user or sftp_keyfile_path not configured. '
                 'Please use set-config command with correct arguments'
             )
             return
@@ -48,7 +48,7 @@ class UploadFileViaSftpCommand(BaseCommand):
             sftp_host=config.sftp_host,
             sftp_user=config.sftp_user,
             sftp_password=None,
-            sftp_keyfile=config.sftp_keyfile,
+            sftp_keyfile=config.sftp_keyfile_path,
         )
         result = sftp_client.upload_file(
             file_name=args.file_name,

@@ -19,4 +19,4 @@ class DeleteFileCommand(BaseApiCommand):
 
     def _run_command_logic(self, args, api_client: OctopodClient):
         api_client.file_api.delete_file(args.file_id)
-        print('Deleted')
+        print('Deleted.')

@@ -9,7 +9,7 @@ class SetConfigCommand(BaseCommand):
     __arg_api_base_url = 'api_base_url'
     __arg_sftp_host = 'sftp_host'
     __arg_sftp_user = 'sftp_user'
-    __arg_sftp_keyfile = 'sftp_keyfile'
+    __arg_sftp_keyfile_path = 'sftp_keyfile_path'
     __arg_download_folder = 'download_folder'
 
     @property
@@ -48,7 +48,7 @@ class SetConfigCommand(BaseCommand):
             type=str,
         )
         self._command_parser.add_argument(
-            f'--{self.__arg_sftp_keyfile}',
+            f'--{self.__arg_sftp_keyfile_path}',
             nargs='?',
             default=None,
             help='Octopod SFTP key file',
@@ -67,7 +67,7 @@ class SetConfigCommand(BaseCommand):
         new_api_base_url = getattr(args, self.__arg_api_base_url)
         new_sftp_host = getattr(args, self.__arg_sftp_host)
         new_sftp_user = getattr(args, self.__arg_sftp_user)
-        new_sftp_keyfile = getattr(args, self.__arg_sftp_keyfile)
+        new_sftp_keyfile_path = getattr(args, self.__arg_sftp_keyfile_path)
         new_download_folder = getattr(args, self.__arg_download_folder)
 
         config_file = Path(config_file_name)
@@ -110,8 +110,8 @@ class SetConfigCommand(BaseCommand):
             self._fetch_config_value(
                 lines=lines,
                 result=new_lines,
-                new_value=new_sftp_keyfile,
-                arg_name=self.__arg_sftp_keyfile,
+                new_value=new_sftp_keyfile_path,
+                arg_name=self.__arg_sftp_keyfile_path,
             )
 
             self._fetch_config_value(

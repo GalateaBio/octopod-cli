@@ -39,12 +39,12 @@ class BaseApiCommand(BaseCommand, ABC):
     def run_command(self, args):
         config = get_config()
         if config is None:
-            print('Config not set. Please use set-config command')
+            print('ERROR! Config not set. Please use set-config command')
             return
 
         if not config.api_key or not config.api_base_url:
             print(
-                'api_key or api_base_url not configured. '
+                'ERROR! api_key or api_base_url not configured. '
                 'Please use set-config command with correct arguments'
             )
             return
