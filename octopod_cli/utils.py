@@ -19,7 +19,7 @@ class Config:
 def get_config() -> Optional[Config]:
     config_file = Path('config.txt')
     if not config_file.exists():
-        print('Config not set. Please use config command to set config')
+        print('ERROR! Config not set. Please use config command to set config')
         return None
     with open('config.txt', 'r') as file:
         config = Config()
