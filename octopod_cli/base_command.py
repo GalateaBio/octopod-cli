@@ -1,0 +1,53 @@
+from abc import ABC, abstractmethod
+from typing import Any
+
+from octopod_cli import get_config
+from octopod_wrapper import OctopodClient
+
+
+class BaseCommand(ABC):
+    _command_parser: Any
+
+    @property
+    def command_parser(self):
+        if not self._command_parser:
+            raise Exception('command parser not set')
+        return self._command_parser
+
+    @property
+    @abstractmethod
+    def command_name(self) -> str:
+        raise NotImplemented
+
+    @abstractmethod
+    def add_args(self, subparsers, parser):
+        raise NotImplemented
+
+    @abstractmethod
+    def run_command(self, args):
+        raise NotImplemented
+
+    def __str__(self) -> str:
+        return self.command_name
+
+
+class BaseApiCommand(BaseCommand, ABC):
+    @abstractmethod
+    def _run_command_logic(self, args, api_client: OctopodClient):
+        raise NotImplemented
+
+    def run_command(self, args):
+        config = get_config()
+        if config is None:
+            print('ERROR! Config not set. Please use set-config command')
+            return
+
+        if not config.api_key or not config.api_base_url:
+            print(
+                'ERROR! api_key or api_base_url not configured. '
+                'Please use set-config command with correct arguments'
+            )
+            return
+
+        octopod_client = OctopodClient(base_url=config.api_base_url, api_key=config.api_key)
+        self._run_command_logic(args, octopod_client)
