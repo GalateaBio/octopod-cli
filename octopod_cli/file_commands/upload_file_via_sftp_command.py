@@ -24,7 +24,7 @@ class UploadFileViaSftpCommand(BaseCommand):
             type=str,
         )
         self._command_parser.add_argument(
-            '--remove_folder',
+            '--remote_folder',
             nargs='?',
             default=None,
             help='Folder for file on SFTP. If None or empty will be generated automatically',
@@ -53,6 +53,6 @@ class UploadFileViaSftpCommand(BaseCommand):
         result = sftp_client.upload_file(
             file_name=args.file_name,
             remote_filename=args.remote_file_name,
-            remote_folder=args.remove_folder,
+            remote_folder=args.remote_folder,
         )
         print(result)
