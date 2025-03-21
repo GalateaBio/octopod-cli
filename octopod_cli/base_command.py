@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 from octopod_cli import get_config
+from octopod_cli.utils import API_MODE_API_KEY, API_MODE_USERNAME_PASSWORD
 from octopod_wrapper import OctopodClient
 
 
@@ -39,15 +40,37 @@ class BaseApiCommand(BaseCommand, ABC):
     def run_command(self, args):
         config = get_config()
         if config is None:
-            print('ERROR! Config not set. Please use set-config command')
             return
 
-        if not config.api_key or not config.api_base_url:
+        if not config.api_base_url:
             print(
-                'ERROR! api_key or api_base_url not configured. '
+                'ERROR! api_base_url not configured. '
                 'Please use set-config command with correct arguments'
             )
             return
 
-        octopod_client = OctopodClient(base_url=config.api_base_url, api_key=config.api_key)
+        if config.api_mode == API_MODE_API_KEY and not config.api_key:
+            print(
+                'ERROR! api_key not configured for api_mode=1. '
+                'Please use set-config command with correct arguments'
+            )
+            return
+
+        if config.api_mode == API_MODE_USERNAME_PASSWORD and not config.api_username or not config.api_password:
+            print(
+                'ERROR! api_username or api_password not configured for api_mode=2. '
+                'Please use set-config command with correct arguments'
+            )
+            return
+
+        api_key = config.api_key
+        if config.api_mode == API_MODE_USERNAME_PASSWORD:
+            auth_json = OctopodClient.authenticate(
+                username=config.api_username,
+                password=config.api_password,
+                base_url=config.api_base_url,
+            )
+            api_key = auth_json.get('access', api_key)
+
+        octopod_client = OctopodClient(base_url=config.api_base_url, api_key=api_key)
         self._run_command_logic(args, octopod_client)

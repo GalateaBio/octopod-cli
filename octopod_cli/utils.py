@@ -5,11 +5,17 @@ from typing import Optional
 
 config_file_name = 'config.txt'
 
+API_MODE_API_KEY = 1
+API_MODE_USERNAME_PASSWORD = 2
+
 
 @dataclass
 class Config:
+    api_mode: int = API_MODE_API_KEY
     api_key: Optional[str] = None
     api_base_url: Optional[str] = None
+    api_username: Optional[str] = None
+    api_password: Optional[str] = None
     sftp_host: Optional[str] = None
     sftp_user: Optional[str] = None
     sftp_keyfile_path: Optional[str] = None
@@ -28,6 +34,10 @@ def get_config() -> Optional[Config]:
         for line in lines:
             for field in fields:
                 if line.startswith(field.name):
-                    setattr(config, field.name, line.replace(f'{field.name}=', ''))
+                    val = line.replace(f'{field.name}=', '')
+                    if isinstance(field.type, type(int)):
+                        setattr(config, field.name, int(val))
+                    else:
+                        setattr(config, field.name, val)
 
         return config

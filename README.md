@@ -37,8 +37,20 @@ api_key = 'Octopod API Key'
 octopod_client = OctopodClient(base_url=base_url, api_key=api_key)
 ```
 
+Also wrapper supports authentication with username and password
+```python
+base_url = 'Octopod API URL'  # Example https://<OCTOPOD_API_HOST>
+auth_json = OctopodClient.authenticate(
+    username='my_username',
+    password='my_password',
+    base_url=base_url,
+)
+api_key = auth_json.get('access')  # fetched api_key has short lifetime!
+octopod_client = OctopodClient(base_url=base_url, api_key=api_key)
+```
+
 ### Upload file
-#### API upload. For files less than 50 mb
+#### API upload. Only for files less than 50 mb
 ```python
 file_obj = octopod_client.file_api.upload_file('my_file.zip')
 ```
@@ -49,7 +61,7 @@ with open(file_name, "rb") as fh:
     buf = BytesIO(fh.read())
     file_obj = octopod_client.file_api.upload_file_from_io(buf, file_name)
 ```
-#### SFTP upload. For files more than 50 mb
+#### SFTP upload. For any file size. (Preferable to use)
 ```python
 sftp_keyfile = 'File name with Octopod SFTP private key'
 sftp_octopod_client = OctopodSftpClient(
@@ -108,46 +120,65 @@ result_file_content, result_file_name = octopod_client.result_api.download_resul
 
 
 ## Octopod CLI usage
-### Set/Get config options
+### Set config options
+CLI tool supports 2 ways to communicate with API:
+* Via API key. **api_mode=1**. Required parameters
+* Via Username & password. **api_mode=2**. Required parameters **api_username**, **api_password**
 ```shell
-octopod-cli set-config --api_key="<api_key>" --api_base_url="<api_base_url>" --sftp_host="<sftp_host>" --sftp_user="<sftp_user>" --sftp_keyfile="<sftp_keyfile>" --download_folder="<download_folder>"
+octo set-config 
+--api_mode=1
+--api_key="<api_key>"
+--api_username="<user_username>"
+--api_password="user_password" 
+--api_base_url="<api_base_url>" 
+--sftp_host="<sftp_host>" 
+--sftp_user="<sftp_user>" 
+--sftp_keyfile="<sftp_keyfile>" 
+--download_folder="<download_folder>"
 ```
+
+### Get config options
 ```shell
-octopod-cli get-config
+octo get-config
+```
+
+### Clear config options
+```shell
+octo clear-config
 ```
 
 ### File upload
-#### API upload. For files less than 50 mb
+#### API upload. Only for files less than 50 mb
 ```shell
-octopod-cli api-upload-file --file_name="<full_file_name>"
+octo api-upload-file --file_name="<full_file_name>"
 ```
-#### SFTP upload. For files more than 50 mb
+#### SFTP upload. For any file size. (Preferable to use)
 ```shell
-octopod-cli sftp-upload-file --file_name="<full_file_name>"
+octo sftp-upload-file --file_name="<full_file_name>"
 ```
 
 ### Get file information
 ```shell
-octopod-cli find-file --file_id="<file_id>"
-octopod-cli find-file --file_name="<file_name>"
+octo find-file --file_id="<file_id>"
+octo find-file --file_name="<file_name>"
 ```
 
 ### Get organization's available models
 ```shell
-octopod-cli get-organization-info
+octo get-organization-info
 ```
 
 ### Submit order
 ```shell
-octopod-cli submit-order --file_id="<file_id>" --model="<model_name>"
+octo submit-order --file_id="<file_id>" --model="<model_name>"
 ```
 
 ### Get order information
 ```shell
-octopod-cli find-order --order_id_or_file_id="<order_id_or_file_id>"
+octo find-order --order_id_or_file_id="<order_id_or_file_id>"
 ```
 
 ### Download order's result
 ```shell
-octopod-cli download-result-file --order_id="<order_id>" --result_type="SUMMARY_SUPERSET"
+octo download-result-file --order_id="<order_id>" --result_type="SUMMARY_SUPERSET"
 ```
