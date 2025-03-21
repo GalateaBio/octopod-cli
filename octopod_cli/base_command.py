@@ -56,7 +56,7 @@ class BaseApiCommand(BaseCommand, ABC):
             )
             return
 
-        if config.api_mode == API_MODE_USERNAME_PASSWORD and not config.api_username or not config.api_password:
+        if config.api_mode == API_MODE_USERNAME_PASSWORD and (not config.api_username or not config.api_password):
             print(
                 'ERROR! api_username or api_password not configured for api_mode=2. '
                 'Please use set-config command with correct arguments'

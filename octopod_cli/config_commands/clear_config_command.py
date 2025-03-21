@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from octopod_cli import BaseCommand, config_file_name
