@@ -1,3 +1,7 @@
+from typing import Dict
+
+import requests
+
 from octopod_wrapper import OctopodException
 from octopod_wrapper.api import _ResultApi
 from octopod_wrapper.api import _FileApi
@@ -25,3 +29,13 @@ class OctopodClient:
         self.organization_api = _OrganizationApi(base_url=base_url, api_key=api_key)
         self.tag_api = _TagApi(base_url=base_url, api_key=api_key)
         self.result_api = _ResultApi(base_url=base_url, api_key=api_key)
+
+    @staticmethod
+    def authenticate(username: str, password: str, base_url: str) -> Dict:
+        payload = {
+            'email': username,
+            'password': password,
+        }
+        response: requests.Response = requests.post(f'{base_url}/api/v1/users/auth', json=payload)
+        response.raise_for_status()
+        return response.json()

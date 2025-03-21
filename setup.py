@@ -21,7 +21,7 @@ setup(
     description="Octopod API client",
     packages=find_packages(),
     py_modules=['cli', 'octopod_cli'],
-    entry_points={'console_scripts': ['octopod-cli=cli:main']},
+    entry_points={'console_scripts': ['octo=cli:main']},
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[

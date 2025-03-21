@@ -7,6 +7,9 @@ from octopod_cli import BaseCommand, config_file_name
 class SetConfigCommand(BaseCommand):
     __arg_api_key = 'api_key'
     __arg_api_base_url = 'api_base_url'
+    __arg_api_username = 'api_username'
+    __arg_api_password = 'api_password'
+    __arg_api_mode = 'api_mode'
     __arg_sftp_host = 'sftp_host'
     __arg_sftp_user = 'sftp_user'
     __arg_sftp_keyfile_path = 'sftp_keyfile_path'
@@ -32,6 +35,26 @@ class SetConfigCommand(BaseCommand):
             default=None,
             help='Octopod API URL',
             type=str,
+        )
+        self._command_parser.add_argument(
+            f'--{self.__arg_api_username}',
+            nargs='?',
+            default=None,
+            help='Octopod User username',
+            type=str,
+        )
+        self._command_parser.add_argument(
+            f'--{self.__arg_api_password}',
+            nargs='?',
+            default=None,
+            help='Octopod User password',
+            type=str,
+        )
+        self._command_parser.add_argument(
+            f'--{self.__arg_api_mode}',
+            required=True,
+            help='API usage mode. 1 - using API key. 2 - using username & password',
+            type=int,
         )
         self._command_parser.add_argument(
             f'--{self.__arg_sftp_host}',
@@ -65,6 +88,8 @@ class SetConfigCommand(BaseCommand):
     def run_command(self, args):
         new_api_key = getattr(args, self.__arg_api_key)
         new_api_base_url = getattr(args, self.__arg_api_base_url)
+        new_api_username = getattr(args, self.__arg_api_username)
+        new_api_password = getattr(args, self.__arg_api_password)
         new_sftp_host = getattr(args, self.__arg_sftp_host)
         new_sftp_user = getattr(args, self.__arg_sftp_user)
         new_sftp_keyfile_path = getattr(args, self.__arg_sftp_keyfile_path)
@@ -91,6 +116,27 @@ class SetConfigCommand(BaseCommand):
                 result=new_lines,
                 new_value=new_api_base_url,
                 arg_name=self.__arg_api_base_url,
+            )
+
+            self._fetch_config_value(
+                lines=lines,
+                result=new_lines,
+                new_value=new_api_username,
+                arg_name=self.__arg_api_username,
+            )
+
+            self._fetch_config_value(
+                lines=lines,
+                result=new_lines,
+                new_value=new_api_password,
+                arg_name=self.__arg_api_password,
+            )
+
+            self._fetch_config_value(
+                lines=lines,
+                result=new_lines,
+                new_value=args.api_mode,
+                arg_name=self.__arg_api_mode,
             )
 
             self._fetch_config_value(

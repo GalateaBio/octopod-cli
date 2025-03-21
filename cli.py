@@ -1,6 +1,6 @@
 import argparse
 
-from octopod_cli.config_commands import SetConfigCommand, GetConfigCommand
+from octopod_cli.config_commands import SetConfigCommand, GetConfigCommand, ClearConfigCommand
 from octopod_cli.file_commands import UploadFileViaApiCommand, UploadFileViaSftpCommand, FindFileCommand, \
     DeleteFileCommand, UpdateFileSampleAliasCommand, DownloadFileCommand
 from octopod_cli.order_commands import SubmitOrderCommand, CancelOrderCommand, UpdateOrderTagsCommand, FindOrderCommand
@@ -11,11 +11,12 @@ from octopod_cli.tag_commands import CreateTagCommand, ListTagsCommand, FindTagC
 
 
 def main():
-    parser = argparse.ArgumentParser('octopod-cli', add_help=True)
+    parser = argparse.ArgumentParser('octo', add_help=True)
 
     commands = [
         SetConfigCommand(),
         GetConfigCommand(),
+        ClearConfigCommand(),
         UploadFileViaApiCommand(),
         UploadFileViaSftpCommand(),
         FindFileCommand(),
