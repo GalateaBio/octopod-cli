@@ -4,7 +4,7 @@ from uuid import UUID
 
 import requests
 
-from octopod_wrapper import OctopodException, convert_str_to_uuid
+from octopod_wrapper import OctopodException, convert_str_to_uuid, OctopodApiException
 
 
 class _BaseApi(ABC):
@@ -39,5 +39,15 @@ class _BaseApi(ABC):
         kwargs['headers']['Authorization'] = f'Bearer {self._api_key}'
 
         response: requests.Response = func(f'{self._base_url}/api/v1/{endpoint_path}', **kwargs)
-        response.raise_for_status()
-        return response
+        if 200 <= response.status_code <= 299:
+            return response
+        try:
+            json = response.json()
+
+            if json and 'detail' in json:
+                raise OctopodApiException(message=json.get('detail'), status_code=response.status_code)
+            raise OctopodApiException(message=response.text, status_code=response.status_code)
+        except OctopodApiException:
+            raise
+        except Exception as e:
+            raise OctopodException(str(e))

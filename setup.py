@@ -26,8 +26,10 @@ setup(
     long_description_content_type="text/markdown",
     classifiers=[
         "Programming Language :: Python :: 3.12",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
     ],
-    url="https://github.com/GalateaBio/octopod-cli",
+    url="https://galatea.bio",
     author="Galatea Bio",
     author_email="info@galatea.bio",
     install_requires=dependencies,
