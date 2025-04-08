@@ -31,11 +31,26 @@ class SubmitOrderCommand(BaseApiCommand):
             help='List of tags ids delimited by comma',
             type=str,
         )
+        self._command_parser.add_argument(
+            '--pdf_report_types',
+            nargs='?',
+            default=None,
+            help='List of PDF report types',
+            type=str,
+        )
 
     def _run_command_logic(self, args, api_client: OctopodClient):
         tags_ids = None
         if args.tags_ids:
             tags_ids = [item.strip() for item in args.tags_ids.split(',')]
-        result = api_client.order_api.submit_order(file_id=args.file_id, model_name=args.model, tags_ids=tags_ids)
+        pdf_report_types = None
+        if args.pdf_report_types:
+            pdf_report_types = [item.strip() for item in args.tags_ids.split(',')]
+        result = api_client.order_api.submit_order(
+            file_id=args.file_id,
+            model_name=args.model,
+            tags_ids=tags_ids,
+            pdf_report_types=pdf_report_types,
+        )
         json_obj = json.dumps(result, indent=4)
         print(json_obj)
