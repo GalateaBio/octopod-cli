@@ -87,6 +87,7 @@ class _OrderApi(_BaseApi):
         file_id: Union[str, UUID],
         model_name: str,
         tags_ids: Optional[List[Union[str, UUID]]] = None,
+        pdf_report_types: Optional[List[str]] = None,
     ) -> Optional[Dict]:
         """
             Submit order.
@@ -95,6 +96,7 @@ class _OrderApi(_BaseApi):
                 file_id: File id. Should be in uuid4 format.
                 model_name: Model name.
                 tags_ids: List of tags ids. Each item should be in uuid4 format.
+                pdf_report_types: List of PDF report types for Mysterio model. Available values: "PRS_RUO", "PRS_CARDIO", "PRS_CANCER"
 
             Returns:
                 Dict: Order object.
@@ -117,6 +119,7 @@ class _OrderApi(_BaseApi):
             'source_file_id': str(file_id),
             'model_name': model_name,
             'tags_ids': str_tags_ids,
+            'pdf_report_types': pdf_report_types,
         }
 
         response = self._make_api_call(requests.post, 'exec/orders', json=payload)
