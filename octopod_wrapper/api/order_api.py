@@ -96,7 +96,7 @@ class _OrderApi(_BaseApi):
                 file_id: File id. Should be in uuid4 format.
                 model_name: Model name.
                 tags_ids: List of tags ids. Each item should be in uuid4 format.
-                pdf_report_types: List of PDF report types for Mysterio model. Available values: "PRS_RUO", "PRS_CARDIO", "PRS_CANCER"
+                pdf_report_types: List of PDF report types for Mysterio model. Available values: "PRS_CLINICAL_CARDIO", "PRS_CLINICAL_CANCER", "PRS_RUO_CARDIO", "PRS_RUO_CANCER"
 
             Returns:
                 Dict: Order object.

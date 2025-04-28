@@ -102,7 +102,7 @@ Submit order with PDF reports for Mysterio model
 ```python
 file_id = 'my_file_id'
 model_name = 'my_model_name'
-pdf_report_types = ['PRS_RUO', 'PRS_CARDIO', 'PRS_CANCER']  # all possible PDF report types
+pdf_report_types = ['PRS_RUO_CARDIO', 'PRS_RUO_CANCER', 'PRS_CLINICAL_CARDIO', 'PRS_CLINICAL_CANCER']  # all possible PDF report types
 order_obj = octopod_client.order_api.submit_order(
     file_id=file_id, 
     model_name=model_name, 
@@ -185,7 +185,7 @@ octo submit-order --file_id="<file_id>" --model="<model_name>"
 ```
 Submit order with PDF reports for Mysterio model
 ```shell
-octo submit-order --file_id="<file_id>" --model="<model_name>" --pdf_report_types="PRS_RUO,PRS_CARDIO,PRS_CANCER"
+octo submit-order --file_id="<file_id>" --model="<model_name>" --pdf_report_types="PRS_RUO_CARDIO,PRS_RUO_CANCER,PRS_CLINICAL_CARDIO,PRS_CLINICAL_CANCER"
 ```
 
 ### Get order information
