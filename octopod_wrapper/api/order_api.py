@@ -1,4 +1,4 @@
-from typing import Union, List, Optional, Dict
+from typing import Union, List, Optional, Dict, Any
 from uuid import UUID
 
 import requests
@@ -88,6 +88,7 @@ class _OrderApi(_BaseApi):
         model_name: str,
         tags_ids: Optional[List[Union[str, UUID]]] = None,
         pdf_report_types: Optional[List[str]] = None,
+        pdf_metadata: Optional[Dict[str, Any]] = None,
     ) -> Optional[Dict]:
         """
             Submit order.
@@ -97,7 +98,7 @@ class _OrderApi(_BaseApi):
                 model_name: Model name.
                 tags_ids: List of tags ids. Each item should be in uuid4 format.
                 pdf_report_types: List of PDF report types for Mysterio model. Available values: "PRS_CLINICAL_CARDIO", "PRS_CLINICAL_CANCER", "PRS_RUO_CARDIO", "PRS_RUO_CANCER"
-
+                pdf_metadata: Dict of pdf metadata parameters.
             Returns:
                 Dict: Order object.
         """
@@ -120,6 +121,7 @@ class _OrderApi(_BaseApi):
             'model_name': model_name,
             'tags_ids': str_tags_ids,
             'pdf_report_types': pdf_report_types,
+            'pdf_metadata': pdf_metadata,
         }
 
         response = self._make_api_call(requests.post, 'exec/orders', json=payload)
