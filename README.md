@@ -15,7 +15,7 @@ Library to work with GalateaBio API via python or via CLI tool.
 ## Installation
 ### Via pip from PyPI
 ```sh
-pip install octopod
+pip install galatea-cli
 ```
 
 ### Local Installation
@@ -24,7 +24,7 @@ git clone repository
 ```
 In your project run 
 ```sh
-pip install octopod file://<path_to_repo>
+pip install file://<path_to_repo>
 ```
 
 
